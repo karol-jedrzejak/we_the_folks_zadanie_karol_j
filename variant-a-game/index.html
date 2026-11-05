@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#10234d">
+    <meta name="description" content="Gut Run — a tiny tap-to-jump game about gut health.">
+    <title>Gut Run</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="viewport" aria-label="Gut Run mobile game">
+      <section class="stage" id="stage" aria-label="Tap to guide Poo through the gut">
+        <canvas id="game" width="720" height="1280" aria-label="Tap the game to jump"></canvas>
+        <button class="mute" id="mute" type="button" aria-label="Mute sound" aria-pressed="false">
+          <svg class="sound-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path class="speaker" d="M3 9v6h4l5 4V5L7 9H3Z"></path>
+            <path class="sound-waves" d="M15 9a5 5 0 0 1 0 6m2-8a8 8 0 0 1 0 10"></path>
+            <path class="sound-off" d="m15 9 6 6m0-6-6 6"></path>
+          </svg>
+        </button>
+        <button class="clickout" id="clickout" type="button" aria-label="Jetzt informieren"></button>
+        <button class="replay" id="replay" type="button" aria-label="Noch einmal spielen"></button>
+        <p class="status" id="status" aria-live="polite">Tap anywhere to start</p>
+      </section>
+    </main>
+    <script src="game.js" defer></script>
+  </body>
+</html>
