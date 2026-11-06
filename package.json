@@ -1,0 +1,10 @@
+{
+  "name": "we_the_folks_zadanie_karol_j",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start_a": "node variant-a-game/serve.js",
+    "start_b": "node variant-b-fireplace/serve.js",
+    "start_all": "npm run start_a && npm run start_b"
+  }
+}

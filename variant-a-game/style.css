@@ -54,7 +54,7 @@ button { font: inherit; }
 .mute {
   position: absolute;
   z-index: 3;
-  top: 12px;
+  top: 74px;
   right: 12px;
   width: 32px;
   height: 32px;
