@@ -19,7 +19,7 @@ The CTA opens `window.clickTag` in a new tab, falling back to the example landin
 ## Notes
 
 - The supplied 2x campaign images are rendered at their intended half-size within a 360×640 design stage. The stage scales uniformly to fit the visible viewport without cropping; the matching navy page background fills any extra space on unusually tall phones.
-- Each of the six bacteria hazards and nine text decorations appears once per run. Only bacteria use inset ellipse hit areas; text never triggers collisions.
+- Each of the six bacteria and nine text hazards appears once per run. Text hazards are shown at 72% of their original half-size and use smaller inset ellipse hit areas to keep the added challenge fair.
 - The supplied assets total about 2.49 MB, including the original audio and design references; no asset compression or removal was needed, keeping the project below 3 MB.
 - The game uses a single animation loop that pauses with page visibility. Audio only starts after the first tap.
 

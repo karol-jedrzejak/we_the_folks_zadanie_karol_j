@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start_a": "node variant-a-game/serve.js",
-    "start_b": "node variant-b-fireplace/serve.js",
-    "start_all": "npm run start_a && npm run start_b"
+    "start_b": "node variant-b-fireplace/serve.js"
   }
 }

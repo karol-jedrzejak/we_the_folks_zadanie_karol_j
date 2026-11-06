@@ -9,6 +9,7 @@
   const PLAYER_X = WIDTH * 0.255;
   const PLAYER_COLLISION_RADIUS = 16;
   const PLAYER_EDGE_RADIUS = 20;
+  const TEXT_OBSTACLE_SCALE = 0.72;
   const ASSET = 'assets/';
   const canvas = document.querySelector('#game');
   const ctx = canvas.getContext('2d');
@@ -188,14 +189,18 @@
     decorations.length = 0;
     shuffledTexts.forEach((name, index) => {
       const image = images[name];
-      const w = (image?.naturalWidth || 60) / 2;
-      const h = (image?.naturalHeight || 120) / 2;
+      const w = (image?.naturalWidth || 60) / 2 * TEXT_OBSTACLE_SCALE;
+      const h = (image?.naturalHeight || 120) / 2 * TEXT_OBSTACLE_SCALE;
       const minX = WIDTH + 24;
       const maxX = getGameplayEnd() + PLAYER_X - 40;
       const x = minX + (maxX - minX) * (index / (shuffledTexts.length - 1));
       const lanes = [0.34, 0.67, 0.48];
       const y = FIELD_TOP + (FIELD_BOTTOM - FIELD_TOP) * lanes[index % lanes.length];
-      decorations.push({ name, x, y, w, h, passed: false });
+      decorations.push({
+        name, x, y, w, h, passed: false,
+        hitboxScaleX: 0.2, hitboxScaleY: 0.16,
+        hitboxMinX: 4, hitboxMinY: 6
+      });
     });
   }
 
@@ -304,13 +309,26 @@
     setScreen(result);
   }
 
+  function getHitboxRadii(obstacle) {
+    return {
+      x: Math.max(obstacle.hitboxMinX ?? 7, obstacle.w * (obstacle.hitboxScaleX ?? 0.28)),
+      y: Math.max(obstacle.hitboxMinY ?? 8, obstacle.h * (obstacle.hitboxScaleY ?? 0.25))
+    };
+  }
+
+  function drawHitbox(obstacle, x) {
+    const radii = getHitboxRadii(obstacle);
+    ctx.beginPath();
+    ctx.ellipse(x, obstacle.y, radii.x, radii.y, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
   function collide(obstacle) {
-    const obstacleRadiusX = Math.max(7, obstacle.w * 0.28);
-    const obstacleRadiusY = Math.max(8, obstacle.h * 0.25);
+    const obstacleRadius = getHitboxRadii(obstacle);
     const dx = PLAYER_X - (obstacle.x - worldScroll);
     const dy = playerY - obstacle.y;
-    const xRadius = PLAYER_COLLISION_RADIUS + obstacleRadiusX;
-    const yRadius = PLAYER_COLLISION_RADIUS + obstacleRadiusY;
+    const xRadius = PLAYER_COLLISION_RADIUS + obstacleRadius.x;
+    const yRadius = PLAYER_COLLISION_RADIUS + obstacleRadius.y;
     return (dx * dx) / (xRadius * xRadius) + (dy * dy) / (yRadius * yRadius) < 1;
   }
 
@@ -349,6 +367,14 @@
       const x = decoration.x - worldScroll;
       if (x + decoration.w / 2 < -10 || x - decoration.w / 2 > WIDTH + 10) return;
       drawImage(decoration.name, x - decoration.w / 2, decoration.y - decoration.h / 2, decoration.w, decoration.h, 0.88);
+      if (debug) {
+        ctx.save();
+        ctx.strokeStyle = '#ffcc00';
+        ctx.lineWidth = 1.5;
+        drawHitbox(decoration, x);
+        ctx.stroke();
+        ctx.restore();
+      }
     });
     obstacles.forEach((obstacle) => {
       if (obstacle.passed) return;
@@ -359,8 +385,7 @@
         ctx.save();
         ctx.strokeStyle = '#00e5ff';
         ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.ellipse(x, obstacle.y, Math.max(7, obstacle.w * 0.28), Math.max(8, obstacle.h * 0.25), 0, 0, Math.PI * 2);
+        drawHitbox(obstacle, x);
         ctx.stroke();
         ctx.restore();
       }
@@ -467,9 +492,14 @@
           }
           if (!obstacle.passed && x + obstacle.w / 2 < PLAYER_X - 16) obstacle.passed = true;
         }
-        decorations.forEach((decoration) => {
-          if (decoration.x - worldScroll + decoration.w / 2 < PLAYER_X - 16) decoration.passed = true;
-        });
+        for (const decoration of decorations) {
+          const x = decoration.x - worldScroll;
+          if (!decoration.passed && collide(decoration)) {
+            setEndcard('fail');
+            break;
+          }
+          if (!decoration.passed && x + decoration.w / 2 < PLAYER_X - 16) decoration.passed = true;
+        }
         const gameplayEnd = getGameplayEnd();
         if (screen === 'playing') worldScroll = Math.min(worldScroll, gameplayEnd);
         if (screen === 'playing' && worldScroll >= gameplayEnd && obstacles.every((obstacle) => obstacle.passed)
