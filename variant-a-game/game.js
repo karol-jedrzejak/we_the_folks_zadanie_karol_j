@@ -433,14 +433,6 @@
       }
     });
     drawFull('logo');
-    if (debug) {
-      ctx.save();
-      ctx.strokeStyle = '#00e5ff';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(36, 476, 234, 49);
-      if (result === 'fail') ctx.strokeRect(36, 530, 234, 51);
-      ctx.restore();
-    }
   }
 
   function draw() {

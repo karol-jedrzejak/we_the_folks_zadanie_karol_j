@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start_a": "node variant-a-game/serve.js",
-    "start_b": "node variant-b-fireplace/serve.js"
+    "start_b": "node variant-b-fireplace/serve.js",
+    "start_b_my_version": "node variant-b-fireplace_my_version/serve.js"
   }
 }

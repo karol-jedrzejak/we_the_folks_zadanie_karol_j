@@ -1,0 +1,312 @@
+:root {
+  color-scheme: dark;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #202020;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body { background: #202020; }
+
+.ad {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background: #172018;
+  contain: strict;
+}
+
+.ad__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.ad--left .ad__backdrop { background-image: url("assets/left/bg.jpg"); }
+.ad--top .ad__backdrop { background-image: url("assets/top/bg.jpg"); }
+.ad--right .ad__backdrop { background-image: url("assets/right/bg.jpg"); }
+
+.ad__logo,
+.ad__copy,
+.ad__panel-fill,
+.ad__cta,
+.ad__headline {
+  position: absolute;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ad__logo,
+.ad__copy,
+.ad__panel {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ad__logo { z-index: 1; }
+.ad__panel-fill {
+  z-index: 2;
+  inset: 76.4% 0 6.7%;
+  background: rgba(15, 108, 161, .82);
+}
+
+.ad__panel {
+  z-index: 3;
+  mix-blend-mode: screen;
+  opacity: .14;
+}
+
+.ad__copy {
+  z-index: 4;
+  mix-blend-mode: screen;
+}
+
+.ad__cta {
+  z-index: 5;
+  left: 50%;
+  bottom: 91px;
+  width: 172.5px;
+  height: 46.5px;
+  border-radius: 8px;
+  clip-path: inset(0 round 8px);
+  transform: translateX(-50%) scale(.94);
+}
+
+.ad__headline {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ad__headline-group {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: center;
+}
+
+.ad__headline--one { clip-path: inset(12% 0 66%); }
+.ad__headline--two { clip-path: inset(34% 0 39.25%); }
+.ad__headline--three { clip-path: inset(61% 0 10%); }
+
+.ad__clickout {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ad__clickout:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -6px;
+}
+
+.is-playing .ad__backdrop {
+  animation:
+    background-intro 4.4s cubic-bezier(.2, .7, .2, 1) both,
+    background-drift 20s ease-in-out 4.4s 1 alternate both;
+}
+
+.is-playing .ad__logo {
+  animation: logo-arrive .75s cubic-bezier(.2, .8, .2, 1) .45s both;
+}
+
+.is-playing .ad__panel-fill {
+  animation: panel-arrive .75s ease-out 1.35s both;
+}
+
+.is-playing .ad__panel {
+  animation: panel-art-arrive .75s ease-out 1.35s both;
+}
+
+.is-playing .ad__copy {
+  animation: copy-arrive .8s ease-out 1.75s both;
+}
+
+.is-playing .ad__cta {
+  animation:
+    cta-arrive .7s cubic-bezier(.2, .8, .2, 1) 2.5s both,
+    cta-pulse 2.8s ease-in-out 3.2s 9;
+}
+
+.is-playing .ad__headline--one {
+  animation: headline-arrive .6s cubic-bezier(.2, .8, .2, 1) .55s both;
+}
+
+.is-playing .ad__headline--two {
+  animation: headline-arrive .6s cubic-bezier(.2, .8, .2, 1) 1.2s both;
+}
+
+.is-playing .ad__headline--three {
+  animation: headline-arrive .6s cubic-bezier(.2, .8, .2, 1) 1.85s both;
+}
+
+.is-playing .ad__headline-group {
+  animation: headline-pulse 3.4s ease-in-out 2.6s 8 both;
+}
+
+@keyframes background-intro {
+  from { opacity: .88; }
+  to { opacity: 1; }
+}
+
+@keyframes background-drift {
+  from { opacity: 1; }
+  to { opacity: .94; }
+}
+
+@keyframes logo-arrive {
+  from { opacity: 0; transform: translateY(12px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes panel-arrive {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes panel-art-arrive {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: .14; transform: translateY(0); }
+}
+
+@keyframes copy-arrive {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cta-arrive {
+  from { opacity: 0; transform: translateX(-50%) scale(.94); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes cta-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.018); }
+}
+
+@keyframes headline-arrive {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes headline-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+
+.preview-page {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at center, #303030 0, #202020 68%);
+}
+
+.preview-frame {
+  position: relative;
+  flex: none;
+  width: 1680px;
+  height: 975px;
+}
+
+.preview-stage {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1680px;
+  height: 975px;
+  overflow: hidden;
+  transform-origin: top left;
+}
+
+.preview-stage iframe {
+  position: absolute;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform-origin: top left;
+}
+
+.preview-left {
+  top: 0px;
+  left: 0px;
+  width: 320px;
+  height: 975px;
+}
+
+.preview-top {
+  top: 0px;
+  left: 320px;
+  width: 1040px;
+  height: 250px;
+}
+
+.preview-right {
+  top: 0px;
+  left: 1360px;
+  width: 320px;
+  height: 975px;
+}
+
+.preview-website {
+  position: absolute;
+  z-index: 0;
+  top: 250px;
+  left: 320px;
+  width: 1040px;
+  height: 725px;
+  background:
+    linear-gradient(180deg, #292929, #202020 45%, #292929);
+  pointer-events: none;
+}
+
+.preview-stage iframe { z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ad__logo,
+  .ad__copy,
+  .ad__panel-fill,
+  .ad__cta,
+  .ad__headline {
+    opacity: 1;
+    transform: none;
+  }
+
+  .ad__panel { opacity: .14; }
+  .ad__headline,
+  .is-playing .ad__headline--one,
+  .is-playing .ad__headline--two,
+  .is-playing .ad__headline--three {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .is-playing .ad__cta,
+  .is-playing .ad__headline-group {
+    animation: none;
+  }
+
+  .ad__cta { transform: translateX(-50%); }
+  .ad__backdrop { animation: none; opacity: 1; }
+}
