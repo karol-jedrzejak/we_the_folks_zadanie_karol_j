@@ -96,6 +96,14 @@ body { background: #202020; }
   height: 100%;
 }
 
+.ad__headline-group {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: center;
+}
+
 .ad__headline--one { clip-path: inset(12% 0 66%); }
 .ad__headline--two { clip-path: inset(34% 0 39%); }
 .ad__headline--three { clip-path: inset(61% 0 10%); }
@@ -153,12 +161,17 @@ body { background: #202020; }
   animation: headline-arrive .6s cubic-bezier(.2, .8, .2, 1) 1.85s both;
 }
 
+.is-playing .ad__headline-group {
+  animation: headline-pulse 3.4s ease-in-out 2.6s 8 both;
+}
+
 .is-debug .ad__backdrop,
 .is-debug .ad__logo,
 .is-debug .ad__panel-fill,
 .is-debug .ad__panel,
 .is-debug .ad__copy,
 .is-debug .ad__cta,
+.is-debug .ad__headline-group,
 .is-debug .ad__headline {
   animation: none;
 }
@@ -212,12 +225,17 @@ body { background: #202020; }
 
 @keyframes cta-pulse {
   0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.035); }
+  50% { transform: translateX(-50%) scale(1.018); }
 }
 
 @keyframes headline-arrive {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes headline-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
 }
 
 .preview-page {
@@ -336,6 +354,11 @@ body { background: #202020; }
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .is-playing .ad__cta,
+  .is-playing .ad__headline-group {
+    animation: none;
   }
 
   .ad__cta { transform: translateX(-50%); }

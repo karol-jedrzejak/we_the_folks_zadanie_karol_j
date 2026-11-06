@@ -24,7 +24,7 @@ The preview opens the top banner and both skyscrapers as separate documents. The
 - Replace the example click tag with the campaign destination before delivery.
 - The product packs are part of the supplied background images, so they cannot animate independently from the moss. The background, logo, message, panel and CTA are animated instead.
 - The supplied top headline artwork reads “STARK BEI HUSTENREIZ & HALSSCHMERZEN.”, while the layout reference shows “NATÜRLICH STARK BEI HUSTENREIZ & HALSSCHMERZEN.” Kept the provided artwork intact rather than redrawing its copy.
-- The calming drift and CTA pulse stop after about 30 seconds; each creative then remains static.
+- The calming background drift and subtle CTA pulse stop after about 30 seconds. The top headline also gently scales after appearing, then stops before 30 seconds.
 
 ## AI note
 
